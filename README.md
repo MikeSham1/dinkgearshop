@@ -15,9 +15,9 @@ The site includes following Front-end features:
 - Some animations
 
 Backend Server features (Current work in progress):
-- Establishing DB
-- API
-
+- Database setup
+- API development
+- Order and product management functionality
 
 To make changes, edit the HTML/CSS files directly and push to `main` — GitHub Pages 
 deploys automatically.
