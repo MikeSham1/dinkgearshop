@@ -382,6 +382,15 @@
         </div>
 
         <div>
+          <span class="dark-section-label">Discount Code</span>
+          <div style="display:flex;gap:0.5rem">
+            <input class="dark-input" type="text" id="discount-input" placeholder="Enter code (e.g. DINK10)" style="flex:1;text-transform:uppercase">
+            <button type="button" id="discount-btn" onclick="applyDiscount()" style="background:var(--green-dark);color:#fff;border:none;border-radius:var(--radius-sm);padding:0 1rem;font-family:'Poppins',sans-serif;font-weight:600;cursor:pointer;white-space:nowrap">Apply</button>
+          </div>
+          <div id="discount-msg" style="font-size:0.78rem;margin-top:0.35rem;display:none"></div>
+        </div>
+
+        <div>
           <span class="dark-section-label">Payment</span>
           <div class="dark-card-wrap" id="card-element-wrap">
             <div id="card-element"></div>
@@ -449,6 +458,8 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="db.js"></script>
   <script src="cart.js"></script>
   <script src="animations.js"></script>
   <script>
@@ -562,6 +573,54 @@
       }
     }
 
+    // ── Discount code ─────────────────────────────────────────────────
+    let appliedDiscount = null;
+
+    async function applyDiscount() {
+      const code = document.getElementById('discount-input').value.trim();
+      const msg  = document.getElementById('discount-msg');
+      const btn  = document.getElementById('discount-btn');
+      if (!code) return;
+      btn.disabled = true;
+      btn.textContent = '…';
+      msg.style.display = 'none';
+      try {
+        const result = await DinkDB.validateDiscount(code);
+        if (result) {
+          appliedDiscount = result;
+          msg.style.color   = '#c8f000';
+          msg.textContent   = `${result.discount_percent}% discount applied!`;
+          msg.style.display = 'block';
+          btn.textContent   = 'Applied';
+          document.getElementById('discount-input').disabled = true;
+          refreshCheckoutTotal();
+        } else {
+          appliedDiscount = null;
+          msg.style.color   = '#ff6b6b';
+          msg.textContent   = 'Invalid or expired code.';
+          msg.style.display = 'block';
+          btn.disabled      = false;
+          btn.textContent   = 'Apply';
+        }
+      } catch {
+        btn.disabled    = false;
+        btn.textContent = 'Apply';
+      }
+    }
+
+    function refreshCheckoutTotal() {
+      const cart = getCart();
+      let total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+      let totalHtml = `$${total.toFixed(2)}`;
+      if (appliedDiscount) {
+        const discounted = total * (1 - appliedDiscount.discount_percent / 100);
+        totalHtml = `<span style="text-decoration:line-through;opacity:0.5">$${total.toFixed(2)}</span> $${discounted.toFixed(2)}`;
+        total = discounted;
+      }
+      const row = document.querySelector('.co-total-row span:last-child');
+      if (row) row.innerHTML = totalHtml;
+    }
+
     // ── Submit order ──────────────────────────────────────────────────
     async function submitOrder(e) {
       e.preventDefault();
@@ -571,30 +630,33 @@
       btn.textContent = 'Processing...';
 
       try {
-        // ── TODO: call your backend to create a Stripe PaymentIntent ──
-        // const res = await fetch('/.netlify/functions/create-payment-intent', {
-        //   method: 'POST',
-        //   headers: { 'Content-Type': 'application/json' },
-        //   body: JSON.stringify({ cart: getCart(), email: form.email.value })
-        // });
-        // const { clientSecret } = await res.json();
-        // const { error } = await stripe.confirmCardPayment(clientSecret, {
-        //   payment_method: {
-        //     card: cardElement,
-        //     billing_details: { name: `${form.firstName.value} ${form.lastName.value}`, email: form.email.value }
-        //   }
-        // });
-        // if (error) throw error;
-        // localStorage.removeItem('dinkgear_cart');
-        // ─────────────────────────────────────────────────────────────
+        const cart = getCart();
+        let total = cart.reduce((s, i) => s + i.price * i.qty, 0);
+        if (appliedDiscount) total = total * (1 - appliedDiscount.discount_percent / 100);
 
-        // Placeholder until backend is wired up
-        await new Promise(r => setTimeout(r, 1200));
+        const customer = {
+          email: form.email.value.trim(),
+          name:  `${form.firstName.value.trim()} ${form.lastName.value.trim()}`
+        };
+        const shippingAddress = {
+          address: form.address.value.trim(),
+          city:    form.city.value.trim(),
+          state:   form.state.value.trim(),
+          zip:     form.zip.value.trim()
+        };
+
+        // Save order to Supabase
+        await DinkDB.saveOrder(cart, customer, parseFloat(total.toFixed(2)), shippingAddress);
+
+        // Clear cart
+        localStorage.removeItem('dinkgear_cart');
+        appliedDiscount = null;
 
         document.getElementById('checkout-form').style.display = 'none';
         document.getElementById('checkout-success').classList.add('show');
 
       } catch (err) {
+        console.error(err);
         document.getElementById('card-errors').textContent = err.message || 'Something went wrong. Please try again.';
         btn.disabled = false;
         btn.textContent = 'Complete Purchase';

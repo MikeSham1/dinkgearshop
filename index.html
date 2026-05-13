@@ -528,16 +528,31 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="db.js"></script>
   <script>
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
       e.preventDefault();
-      const btn = e.target.querySelector('button');
+      const btn   = e.target.querySelector('button');
       const input = e.target.querySelector('input');
-      btn.textContent = "You're on the list!";
-      btn.style.background = 'rgba(200,240,0,0.3)';
-      btn.style.color = '#c8f000';
-      btn.disabled = true;
-      input.disabled = true;
+      const email = input.value.trim();
+      btn.disabled  = true;
+      btn.textContent = 'Saving…';
+      try {
+        const result = await DinkDB.saveEmailSignup(email);
+        if (result.alreadySignedUp) {
+          btn.textContent = 'Already signed up!';
+        } else {
+          btn.textContent = "You're on the list!";
+        }
+        btn.style.background = 'rgba(200,240,0,0.3)';
+        btn.style.color      = '#c8f000';
+        input.disabled       = true;
+      } catch (err) {
+        console.error(err);
+        btn.disabled    = false;
+        btn.textContent = 'Try again';
+      }
     }
   </script>
 

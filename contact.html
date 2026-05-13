@@ -208,6 +208,8 @@
     </div>
   </footer>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="db.js"></script>
   <script>
     function validateField(input, errorId, validator) {
       const valid = validator(input.value.trim());
@@ -230,14 +232,30 @@
       validateField(this, 'err-message', v => v.length > 0);
     });
 
-    function handleContact(e) {
+    async function handleContact(e) {
       e.preventDefault();
       const nameOk    = validateField(document.getElementById('contact-name'),    'err-name',    v => v.length > 0);
       const emailOk   = validateField(document.getElementById('contact-email'),   'err-email',   v => emailRe.test(v));
       const messageOk = validateField(document.getElementById('contact-message'), 'err-message', v => v.length > 0);
       if (!nameOk || !emailOk || !messageOk) return;
-      e.target.style.display = 'none';
-      document.getElementById('successMsg').style.display = 'block';
+
+      const btn = e.target.querySelector('button');
+      btn.disabled    = true;
+      btn.textContent = 'Sending…';
+
+      try {
+        await DinkDB.saveContactMessage(
+          document.getElementById('contact-name').value.trim(),
+          document.getElementById('contact-email').value.trim(),
+          document.getElementById('contact-message').value.trim()
+        );
+        e.target.style.display = 'none';
+        document.getElementById('successMsg').style.display = 'block';
+      } catch (err) {
+        console.error(err);
+        btn.disabled    = false;
+        btn.textContent = 'Send Message';
+      }
     }
   </script>
 
