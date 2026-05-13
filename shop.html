@@ -325,13 +325,11 @@
   </div>
 
   <nav>
-    <a class="logo" href="index.html">🏓 Dink <span>Gear</span> Shop</a>
+    <a class="logo" href="index.html">Dink <span>Gear</span> Shop</a>
     <ul class="nav-links">
       <li><a href="index.html">Home</a></li>
-      <li><a href="shop.html" class="active">Shop</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="contact.html">Contact</a></li>
-      <li><a href="contact.html" class="cta">Get Help</a></li>
     </ul>
   </nav>
 
@@ -353,118 +351,9 @@
       </div>
     </div>
 
-    <div class="results-bar">
-      <span id="resultCount">Showing 6 products</span>
-    </div>
-
     <section class="products-section">
-      <div class="product-grid">
-
-        <div class="product-card" data-cat="paddle">
-          <span class="product-badge badge-best">Best Seller</span>
-          <button class="wishlist-btn" onclick="toggleWish(this)">🤍</button>
-          <div class="product-image img-paddle">🏓</div>
-          <div class="product-info">
-            <div class="product-tag">Paddle</div>
-            <div class="product-name">Pro Carbon Paddle</div>
-            <div class="product-stars">★★★★★ <span>(128)</span></div>
-            <div class="product-desc">Lightweight carbon fiber face with a polymer core for power and control.</div>
-            <div class="product-footer">
-              <div class="price-wrap"><span class="product-price">$89.99</span></div>
-              <button class="add-to-cart">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card" data-cat="balls">
-          <span class="product-badge badge-new">New</span>
-          <button class="wishlist-btn" onclick="toggleWish(this)">🤍</button>
-          <div class="product-image img-balls">🟡</div>
-          <div class="product-info">
-            <div class="product-tag">Balls</div>
-            <div class="product-name">Outdoor Ball 6-Pack</div>
-            <div class="product-stars">★★★★☆ <span>(74)</span></div>
-            <div class="product-desc">USAPA-approved outdoor balls built for durability on hard courts.</div>
-            <div class="product-footer">
-              <div class="price-wrap"><span class="product-price">$24.99</span></div>
-              <button class="add-to-cart">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card" data-cat="footwear">
-          <button class="wishlist-btn" onclick="toggleWish(this)">🤍</button>
-          <div class="product-image img-shoes">👟</div>
-          <div class="product-info">
-            <div class="product-tag">Footwear</div>
-            <div class="product-name">Court Grip Shoes</div>
-            <div class="product-stars">★★★★★ <span>(52)</span></div>
-            <div class="product-desc">Non-marking soles with lateral support designed for quick court movement.</div>
-            <div class="product-footer">
-              <div class="price-wrap"><span class="product-price">$119.99</span></div>
-              <button class="add-to-cart">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card" data-cat="bags">
-          <span class="product-badge badge-sale">Sale</span>
-          <button class="wishlist-btn" onclick="toggleWish(this)">🤍</button>
-          <div class="product-image img-bags">🎒</div>
-          <div class="product-info">
-            <div class="product-tag">Bags</div>
-            <div class="product-name">Dink Gear Bag</div>
-            <div class="product-stars">★★★★☆ <span>(39)</span></div>
-            <div class="product-desc">Fits up to 4 paddles with padded compartments and water bottle pockets.</div>
-            <div class="product-footer">
-              <div class="price-wrap">
-                <span class="product-price">$39.99</span>
-                <span class="product-original">$49.99</span>
-              </div>
-              <button class="add-to-cart">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card" data-cat="accessories">
-          <button class="wishlist-btn" onclick="toggleWish(this)">🤍</button>
-          <div class="product-image img-access">🧤</div>
-          <div class="product-info">
-            <div class="product-tag">Accessories</div>
-            <div class="product-name">Grip Glove</div>
-            <div class="product-stars">★★★★☆ <span>(21)</span></div>
-            <div class="product-desc">Breathable mesh glove with palm padding for an anti-slip grip all match long.</div>
-            <div class="product-footer">
-              <div class="price-wrap"><span class="product-price">$19.99</span></div>
-              <button class="add-to-cart">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="product-card" data-cat="apparel">
-          <span class="product-badge badge-new">New</span>
-          <button class="wishlist-btn" onclick="toggleWish(this)">🤍</button>
-          <div class="product-image img-apparel">👕</div>
-          <div class="product-info">
-            <div class="product-tag">Apparel</div>
-            <div class="product-name">Performance Tee</div>
-            <div class="product-stars">★★★★★ <span>(17)</span></div>
-            <div class="product-desc">Moisture-wicking fabric to keep you cool and comfortable during long sessions.</div>
-            <div class="product-footer">
-              <div class="price-wrap"><span class="product-price">$34.99</span></div>
-              <button class="add-to-cart">Add to Cart</button>
-            </div>
-          </div>
-        </div>
-
-      </div>
+      <p style="text-align:center; color:#888; font-size:0.95rem; padding: 3rem 0;">Products coming soon. Check back shortly!</p>
     </section>
-
-    <div class="promo-strip">
-      <h2>Not sure what to get?</h2>
-      <p>Answer a few quick questions and we'll recommend the perfect gear for your game.</p>
-      <a href="contact.html">Talk to Us</a>
-    </div>
   </main>
 
   <footer>
@@ -472,29 +361,12 @@
   </footer>
 
   <script>
-    const cards = document.querySelectorAll('.product-card');
-    const countEl = document.getElementById('resultCount');
-
     document.querySelectorAll('.filter-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-
-        const cat = btn.dataset.cat;
-        let visible = 0;
-        cards.forEach(card => {
-          const show = cat === 'all' || card.dataset.cat === cat;
-          card.style.display = show ? '' : 'none';
-          if (show) visible++;
-        });
-        countEl.textContent = `Showing ${visible} product${visible !== 1 ? 's' : ''}`;
       });
     });
-
-    function toggleWish(btn) {
-      btn.classList.toggle('liked');
-      btn.textContent = btn.classList.contains('liked') ? '❤️' : '🤍';
-    }
   </script>
 
 </body>
