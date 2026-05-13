@@ -4,39 +4,426 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dink Gear Shop</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    body {
+    * {
+      box-sizing: border-box;
       margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #f4faf4;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Navigation */
+    nav {
+      background-color: #1e4d1e;
+      padding: 0 3rem;
       display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+      border-bottom: 2px solid #7dce7d;
+    }
+
+    .logo {
+      color: #fff;
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-decoration: none;
+      letter-spacing: 2px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo-icon {
+      font-size: 1.4rem;
+    }
+
+    .logo span {
+      color: #7dce7d;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-links a {
+      color: #c8e6c8;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-family: 'Poppins', sans-serif;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 0.45rem 1rem;
+      border-radius: 6px;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    .nav-links a:hover {
+      background-color: rgba(255,255,255,0.1);
+      color: #fff;
+    }
+
+    .nav-links .cta {
+      background-color: #7dce7d;
+      color: #1e4d1e;
+      font-weight: bold;
+      border-radius: 6px;
+      margin-left: 0.75rem;
+    }
+
+    .nav-links .cta:hover {
+      background-color: #9dde9d;
+      color: #1e4d1e;
+    }
+
+    /* Hero */
+    .hero {
+      display: flex;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: 100vh;
-      background-color: #f0f9f0;
-      font-family: Georgia, serif;
+      min-height: calc(100vh - 65px);
+      padding: 2rem;
+      background: radial-gradient(ellipse at center, #e8f5e8 0%, #f4faf4 70%);
       text-align: center;
     }
 
-    .container {
-      padding: 2rem;
+    .badge {
+      display: inline-block;
+      background-color: #d4edda;
+      color: #2d6a2d;
+      font-size: 0.8rem;
+      font-family: 'Poppins', sans-serif;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 0.4rem 1.2rem;
+      border-radius: 20px;
+      margin-bottom: 1.5rem;
+      border: 1px solid #b2dfb2;
     }
 
     h1 {
-      font-size: 2.5rem;
-      color: #2d6a2d;
-      margin-bottom: 1rem;
+      font-size: 3rem;
+      color: #1e4d1e;
+      line-height: 1.3;
+      max-width: 700px;
+      margin-bottom: 1.2rem;
     }
 
-    p {
+    .subtitle {
       font-size: 1rem;
       color: #888;
+      font-family: 'Poppins', sans-serif;
+      letter-spacing: 1px;
+      margin-bottom: 2.5rem;
+    }
+
+    .divider {
+      width: 60px;
+      height: 3px;
+      background-color: #7dce7d;
+      border-radius: 2px;
+      margin: 0 auto;
+    }
+
+    /* Email signup */
+    .email-form {
+      margin-top: 2.5rem;
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .email-form input[type="email"] {
+      padding: 0.75rem 1.25rem;
+      border: 2px solid #b2dfb2;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: 'Poppins', sans-serif;
+      width: 300px;
+      outline: none;
+      background-color: #fff;
+      color: #333;
+      transition: border-color 0.2s;
+    }
+
+    .email-form input[type="email"]:focus {
+      border-color: #2d6a2d;
+    }
+
+    .email-form button {
+      padding: 0.75rem 1.75rem;
+      background-color: #2d6a2d;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .email-form button:hover {
+      background-color: #1e4d1e;
+    }
+
+    .email-note {
+      margin-top: 0.85rem;
+      font-size: 0.78rem;
+      color: #aaa;
+    }
+
+    /* Products */
+    .products-section {
+      padding: 5rem 3rem;
+      background-color: #fff;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .section-header h2 {
+      font-size: 2rem;
+      color: #1e4d1e;
+      font-weight: 700;
+    }
+
+    .section-header p {
+      color: #888;
       margin-top: 0.5rem;
+      font-size: 0.95rem;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .product-card {
+      background-color: #f4faf4;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+    }
+
+    .product-image {
+      width: 100%;
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4rem;
+      background-color: #e8f5e8;
+    }
+
+    .product-info {
+      padding: 1.2rem;
+    }
+
+    .product-tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #7dce7d;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .product-name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #1e4d1e;
+      margin-bottom: 0.3rem;
+    }
+
+    .product-desc {
+      font-size: 0.8rem;
+      color: #888;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    .product-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .product-price {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #2d6a2d;
+    }
+
+    .add-to-cart {
+      background-color: #2d6a2d;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 0.45rem 1rem;
+      font-size: 0.8rem;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .add-to-cart:hover {
+      background-color: #1e4d1e;
     }
   </style>
 </head>
 <body>
-  <div class="container">
+
+  <nav>
+    <a class="logo" href="#">
+      <span class="logo-icon">🏓</span> Dink <span>Gear</span> Shop
+    </a>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Shop</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><a href="#" class="cta">Shop Now</a></li>
+    </ul>
+  </nav>
+
+  <div class="hero">
+    <div class="badge">🏓 Coming Soon</div>
     <h1>Pickleball is a great sport. You should try it sometime!</h1>
-    <p>This website is coming soon!</p>
+    <div class="divider"></div>
+    <p class="subtitle" style="margin-top: 1.5rem;">This website is coming soon!</p>
+
+    <form class="email-form" onsubmit="handleSubmit(event)">
+      <input type="email" placeholder="Enter your email address" required />
+      <button type="submit">Notify Me</button>
+    </form>
+    <p class="email-note">No spam, ever. We'll only reach out when we launch.</p>
   </div>
+
+  <!-- Products -->
+  <section class="products-section">
+    <div class="section-header">
+      <h2>Featured Gear</h2>
+      <p>Top-quality pickleball equipment for every level</p>
+    </div>
+    <div class="product-grid">
+
+      <div class="product-card">
+        <div class="product-image">🏓</div>
+        <div class="product-info">
+          <div class="product-tag">Paddle</div>
+          <div class="product-name">Pro Carbon Paddle</div>
+          <div class="product-desc">Lightweight carbon fiber face with a polymer core for power and control.</div>
+          <div class="product-footer">
+            <span class="product-price">$89.99</span>
+            <button class="add-to-cart">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">🟡</div>
+        <div class="product-info">
+          <div class="product-tag">Balls</div>
+          <div class="product-name">Outdoor Ball 6-Pack</div>
+          <div class="product-desc">USAPA-approved outdoor balls built for durability on hard courts.</div>
+          <div class="product-footer">
+            <span class="product-price">$24.99</span>
+            <button class="add-to-cart">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">👟</div>
+        <div class="product-info">
+          <div class="product-tag">Footwear</div>
+          <div class="product-name">Court Grip Shoes</div>
+          <div class="product-desc">Non-marking soles with lateral support designed for quick court movement.</div>
+          <div class="product-footer">
+            <span class="product-price">$119.99</span>
+            <button class="add-to-cart">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">🎒</div>
+        <div class="product-info">
+          <div class="product-tag">Bags</div>
+          <div class="product-name">Dink Gear Bag</div>
+          <div class="product-desc">Fits up to 4 paddles with padded compartments and water bottle pockets.</div>
+          <div class="product-footer">
+            <span class="product-price">$49.99</span>
+            <button class="add-to-cart">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">🧤</div>
+        <div class="product-info">
+          <div class="product-tag">Accessories</div>
+          <div class="product-name">Grip Glove</div>
+          <div class="product-desc">Breathable mesh glove with palm padding for an anti-slip grip all match long.</div>
+          <div class="product-footer">
+            <span class="product-price">$19.99</span>
+            <button class="add-to-cart">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-image">👕</div>
+        <div class="product-info">
+          <div class="product-tag">Apparel</div>
+          <div class="product-name">Performance Tee</div>
+          <div class="product-desc">Moisture-wicking fabric to keep you cool and comfortable during long sessions.</div>
+          <div class="product-footer">
+            <span class="product-price">$34.99</span>
+            <button class="add-to-cart">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <script>
+    function handleSubmit(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('button');
+      const input = e.target.querySelector('input');
+      btn.textContent = 'You\'re on the list!';
+      btn.style.backgroundColor = '#7dce7d';
+      btn.style.color = '#1e4d1e';
+      btn.disabled = true;
+      input.disabled = true;
+    }
+  </script>
+
 </body>
 </html>
