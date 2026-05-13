@@ -135,9 +135,9 @@
       <p>Have a question or just want to talk pickleball? We'd love to hear from you.</p>
 
       <form class="contact-form" onsubmit="handleContact(event)">
-        <input type="text" placeholder="Your name" required />
-        <input type="email" placeholder="Your email address" required />
-        <textarea placeholder="Your message"></textarea>
+        <input type="text" name="name" placeholder="Your name" required />
+        <input type="email" name="email" placeholder="Your email address" required />
+        <textarea name="message" placeholder="Your message"></textarea>
         <button type="submit">Send Message</button>
       </form>
       <div class="success-msg" id="successMsg">
@@ -191,5 +191,6 @@
     }
   </script>
 
+  <script src="cart.js"></script>
 </body>
 </html>
