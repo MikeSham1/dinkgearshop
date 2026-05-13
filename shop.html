@@ -76,23 +76,63 @@
       border: 1px solid var(--border);
       border-radius: 16px;
       overflow: hidden;
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.28s cubic-bezier(0.22,1,0.36,1), box-shadow 0.28s;
+      position: relative;
     }
 
+    .product-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--green-mid), var(--lime));
+      opacity: 0;
+      transition: opacity 0.25s;
+      z-index: 1;
+    }
+
+    .product-card:hover::before { opacity: 1; }
+
     .product-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 32px rgba(42,143,62,0.13);
+      transform: translateY(-7px);
+      box-shadow: 0 22px 52px rgba(13,43,18,0.15), 0 0 0 1.5px rgba(200,240,0,0.18);
     }
 
     .product-img-wrap {
-      aspect-ratio: 1 / 1;
+      height: 300px;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      background: linear-gradient(135deg, #edfaf0 0%, #d4f0da 100%);
+      padding: 1.75rem;
+      position: relative;
     }
 
-    .product-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+    .product-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 45%, rgba(200,240,0,0.06) 65%, transparent 85%);
+      opacity: 0;
+      transition: opacity 0.35s;
+    }
+
+    .product-card:hover .product-img-wrap::after { opacity: 1; }
+
+    .product-img-wrap img {
+      max-height: 220px;
+      max-width: 100%;
+      width: auto;
+      object-fit: contain;
+      transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), filter 0.3s;
+      filter: drop-shadow(0 8px 20px rgba(13,43,18,0.18));
+    }
+
+    .product-card:hover .product-img-wrap img {
+      transform: scale(1.08) translateY(-5px);
+      filter: drop-shadow(0 18px 36px rgba(13,43,18,0.28));
+    }
 
     .product-info { padding: 1.1rem 1.25rem 1.4rem; }
 
@@ -136,16 +176,33 @@
       font-weight: 700;
       font-family: 'Poppins', sans-serif;
       font-size: var(--fs-small);
-      padding: 0.65rem 1.6rem;
+      padding: 0.72rem 1.6rem;
       border-radius: 100px;
       border: none;
       cursor: pointer;
-      transition: background 0.2s, transform 0.15s;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
       text-align: center;
+      position: relative;
+      overflow: hidden;
     }
 
-    .add-cart-btn:hover:not(:disabled) { background: var(--green-mid); transform: scale(1.02); }
-    .add-cart-btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+    .add-cart-btn::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 55%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transform: skewX(-20deg);
+      animation: shimmerPass 3s ease-in-out 1s infinite;
+    }
+
+    .add-cart-btn:hover:not(:disabled) {
+      background: var(--green-mid);
+      transform: scale(1.02);
+      box-shadow: 0 6px 20px rgba(13,43,18,0.28);
+    }
+    .add-cart-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+    .add-cart-btn:disabled::after { animation: none; }
     .add-cart-btn.added { background: var(--green-bright); }
 
     /* ── Checkout drawer (dark) ── */
@@ -243,14 +300,14 @@
             <div class="product-category">T-Shirts</div>
             <div class="product-name">Dink Gear Classic Tee</div>
             <div class="product-price">$35.00</div>
-            <select class="variant-select" id="shirt-variant">
-              <option value="">Select Size</option>
-              <option value="S">S — Small</option>
-              <option value="M">M — Medium</option>
-              <option value="L">L — Large</option>
-              <option value="XL">XL — Extra Large</option>
-              <option value="XXL">XXL — Double Extra Large</option>
-            </select>
+            <span class="size-label">Size</span>
+            <div class="size-picker">
+              <button class="size-chip" data-product="shirt" data-size="S"   type="button">S</button>
+              <button class="size-chip" data-product="shirt" data-size="M"   type="button">M</button>
+              <button class="size-chip" data-product="shirt" data-size="L"   type="button">L</button>
+              <button class="size-chip" data-product="shirt" data-size="XL"  type="button">XL</button>
+              <button class="size-chip" data-product="shirt" data-size="XXL" type="button">XXL</button>
+            </div>
             <button class="add-cart-btn" id="shirt-btn" onclick="handleAddToCart('shirt')" disabled>Add to Cart</button>
           </div>
         </div>
@@ -263,13 +320,13 @@
             <div class="product-category">Hats</div>
             <div class="product-name">Dink Gear Snapback</div>
             <div class="product-price">$30.00</div>
-            <select class="variant-select" id="hat-variant">
-              <option value="">Select Size</option>
-              <option value="S">S — Small</option>
-              <option value="M">M — Medium</option>
-              <option value="L">L — Large</option>
-              <option value="XL">XL — Extra Large</option>
-            </select>
+            <span class="size-label">Size</span>
+            <div class="size-picker">
+              <button class="size-chip" data-product="hat" data-size="S"  type="button">S</button>
+              <button class="size-chip" data-product="hat" data-size="M"  type="button">M</button>
+              <button class="size-chip" data-product="hat" data-size="L"  type="button">L</button>
+              <button class="size-chip" data-product="hat" data-size="XL" type="button">XL</button>
+            </div>
             <button class="add-cart-btn" id="hat-btn" onclick="handleAddToCart('hat')" disabled>Add to Cart</button>
           </div>
         </div>
@@ -277,6 +334,36 @@
       </div>
     </section>
   </main>
+
+  <!-- Trust strip -->
+  <div class="promise-strip reveal">
+    <div class="promise-items">
+      <div class="promise-item">
+        <div class="promise-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 2l2.5 5 5.5.8-4 3.9.9 5.5L10 14.5l-4.9 2.7.9-5.5L2 7.8l5.5-.8L10 2z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg>
+        </div>
+        <div><strong>Quality First</strong><span>Premium materials every drop</span></div>
+      </div>
+      <div class="promise-item">
+        <div class="promise-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><rect x="2" y="7" width="16" height="11" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M6 7V5a4 4 0 018 0v2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+        </div>
+        <div><strong>Secure Checkout</strong><span>Powered by Stripe</span></div>
+      </div>
+      <div class="promise-item">
+        <div class="promise-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 10l5 5 9-9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div><strong>30-Day Returns</strong><span>No questions asked</span></div>
+      </div>
+      <div class="promise-item">
+        <div class="promise-icon">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M2 10h16M12 5l5 5-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div><strong>Free Shipping</strong><span>On all orders over $75</span></div>
+      </div>
+    </div>
+  </div>
 
   <!-- ── Checkout Drawer (dark) ── -->
   <div class="dark-overlay" id="checkout-overlay" style="z-index:2100">
@@ -381,6 +468,7 @@
   </footer>
 
   <script src="cart.js"></script>
+  <script src="animations.js"></script>
   <script>
     // ─────────────────────────────────────────────────────────────────
     // STRIPE — replace with your publishable key from stripe.com/dashboard
@@ -395,18 +483,22 @@
 
     let stripe, cardElement;
 
-    // ── Size selectors ────────────────────────────────────────────────
-    ['shirt', 'hat'].forEach(key => {
-      document.getElementById(`${key}-variant`).addEventListener('change', function () {
-        document.getElementById(`${key}-btn`).disabled = !this.value;
+    // ── Size chip selectors ───────────────────────────────────────────
+    document.querySelectorAll('.size-chip').forEach(chip => {
+      chip.addEventListener('click', function () {
+        const product = this.dataset.product;
+        document.querySelectorAll(`.size-chip[data-product="${product}"]`)
+          .forEach(c => c.classList.remove('selected'));
+        this.classList.add('selected');
+        document.getElementById(`${product}-btn`).disabled = false;
       });
     });
 
     // ── Add to cart ───────────────────────────────────────────────────
     function handleAddToCart(key) {
-      const select = document.getElementById(`${key}-variant`);
-      const size   = select.value;
-      if (!size) return;
+      const selected = document.querySelector(`.size-chip[data-product="${key}"].selected`);
+      if (!selected) return;
+      const size = selected.dataset.size;
       const p = PRODUCTS[key];
       addToCart(`${key}-${size}`, p.name, size, p.price, p.img);
 

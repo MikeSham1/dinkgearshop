@@ -1,4 +1,4 @@
-(function () {
+1(function () {
   const CART_KEY = 'dinkgear_cart';
 
   // ── State ─────────────────────────────────────────────────────────

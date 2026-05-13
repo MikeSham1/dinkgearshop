@@ -72,6 +72,21 @@
       box-shadow: 0 0 0 3px rgba(200,240,0,0.12);
     }
 
+    .contact-form input.invalid,
+    .contact-form textarea.invalid {
+      border-color: #e53e3e;
+      box-shadow: 0 0 0 3px rgba(229,62,62,0.12);
+    }
+
+    .field-error {
+      font-size: 0.75rem;
+      color: #e53e3e;
+      margin-top: 0.25rem;
+      display: none;
+    }
+
+    .field-error.show { display: block; }
+
     .contact-form textarea {
       height: 150px;
       resize: vertical;
@@ -119,6 +134,7 @@
       <li><a href="index.html">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="contact.html" class="active">Contact</a></li>
+      <li><a href="faq.html">FAQ</a></li>
       <li><a href="shop.html" class="cta">Shop Now</a></li>
     </ul>
   </nav>
@@ -129,15 +145,23 @@
       <p>We usually respond within one business day</p>
     </div>
 
-    <div class="contact-section">
+    <div class="contact-section reveal">
       <span class="contact-label">Contact</span>
       <h2>Get in Touch</h2>
       <p>Have a question or just want to talk pickleball? We'd love to hear from you.</p>
 
-      <form class="contact-form" onsubmit="handleContact(event)">
-        <input type="text" name="name" placeholder="Your name" required />
-        <input type="email" name="email" placeholder="Your email address" required />
-        <textarea name="message" placeholder="Your message"></textarea>
+      <form class="contact-form" onsubmit="handleContact(event)" novalidate>
+        <div>
+          <input type="text" name="name" id="contact-name" placeholder="Your name" autocomplete="name" />
+          <div class="field-error" id="err-name">Please enter your name.</div>
+        </div>
+        <div>
+          <input type="email" name="email" id="contact-email" placeholder="Your email address" autocomplete="email" />
+          <div class="field-error" id="err-email">Please enter a valid email address.</div>
+        </div>
+        <div>
+          <textarea name="message" id="contact-message" placeholder="Your message"></textarea>
+        </div>
         <button type="submit">Send Message</button>
       </form>
       <div class="success-msg" id="successMsg">
@@ -184,13 +208,34 @@
   </footer>
 
   <script>
+    function validateField(input, errorId, validator) {
+      const valid = validator(input.value.trim());
+      input.classList.toggle('invalid', !valid);
+      document.getElementById(errorId).classList.toggle('show', !valid);
+      return valid;
+    }
+
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    document.getElementById('contact-name').addEventListener('input', function () {
+      validateField(this, 'err-name', v => v.length > 0);
+    });
+
+    document.getElementById('contact-email').addEventListener('input', function () {
+      validateField(this, 'err-email', v => emailRe.test(v));
+    });
+
     function handleContact(e) {
       e.preventDefault();
+      const nameOk  = validateField(document.getElementById('contact-name'),  'err-name',  v => v.length > 0);
+      const emailOk = validateField(document.getElementById('contact-email'), 'err-email', v => emailRe.test(v));
+      if (!nameOk || !emailOk) return;
       e.target.style.display = 'none';
       document.getElementById('successMsg').style.display = 'block';
     }
   </script>
 
   <script src="cart.js"></script>
+  <script src="animations.js"></script>
 </body>
 </html>

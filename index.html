@@ -339,6 +339,7 @@
       <li><a href="index.html" class="active">Home</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="contact.html">Contact</a></li>
+      <li><a href="faq.html">FAQ</a></li>
       <li><a href="shop.html" class="cta">Shop Now</a></li>
     </ul>
   </nav>
@@ -346,17 +347,17 @@
   <main>
     <div class="hero">
       <div class="hero-content">
-        <div class="badge">Launching Soon</div>
-        <h1>Custom Pickleball Gear<br>for the <span class="accent">Passionate Pickleballer</span></h1>
-        <p class="hero-sub">Tees and hats — designed for the court, made for everywhere.</p>
-        <form class="email-form" onsubmit="handleSubmit(event)">
+        <div class="badge hero-badge-in">Launching Soon</div>
+        <h1 class="hero-title-in">Custom Pickleball Gear<br>for the <span class="accent">Passionate Pickleballer</span></h1>
+        <p class="hero-sub hero-sub-in">Tees and hats — designed for the court, made for everywhere.</p>
+        <form class="email-form hero-form-in" onsubmit="handleSubmit(event)">
           <input type="email" placeholder="Enter your email for early access" required />
           <button type="submit">Notify Me</button>
         </form>
         <p class="email-note">No spam, ever. We'll only reach out when we launch.</p>
 
         <!-- Paddle scene -->
-        <div class="paddle-scene">
+        <div class="paddle-scene hero-scene-in">
           <div class="paddle-shadow"></div>
 
           <svg class="paddle-svg" viewBox="0 0 140 265" xmlns="http://www.w3.org/2000/svg">
@@ -428,18 +429,40 @@
       </div>
     </div>
 
-    <!-- Feature strip -->
+    <!-- Feature strip marquee -->
     <div class="feature-strip">
-      <div class="feature-pill"><span class="feature-dot"></span>Free Shipping over $75</div>
-      <div class="feature-pill"><span class="feature-dot"></span>Designed by Players</div>
-      <div class="feature-pill"><span class="feature-dot"></span>Custom Every Drop</div>
-      <div class="feature-pill"><span class="feature-dot"></span>Quality First</div>
+      <div class="feature-marquee-track">
+        <span class="feature-pill"><span class="feature-dot"></span>Free Shipping over $75</span>
+        <span class="feature-sep">✦</span>
+        <span class="feature-pill"><span class="feature-dot"></span>Designed by Players</span>
+        <span class="feature-sep">✦</span>
+        <span class="feature-pill"><span class="feature-dot"></span>Custom Every Drop</span>
+        <span class="feature-sep">✦</span>
+        <span class="feature-pill"><span class="feature-dot"></span>Quality First</span>
+        <span class="feature-sep">✦</span>
+        <span class="feature-pill"><span class="feature-dot"></span>USAPA Approved</span>
+        <span class="feature-sep">✦</span>
+        <span class="feature-pill"><span class="feature-dot"></span>30-Day Returns</span>
+        <span class="feature-sep">✦</span>
+        <span class="feature-pill"><span class="feature-dot"></span>Free Shipping over $75</span>
+        <span class="feature-sep">✦</span>
+        <span class="feature-pill"><span class="feature-dot"></span>Designed by Players</span>
+        <span class="feature-sep">✦</span>
+        <span class="feature-pill"><span class="feature-dot"></span>Custom Every Drop</span>
+        <span class="feature-sep">✦</span>
+        <span class="feature-pill"><span class="feature-dot"></span>Quality First</span>
+        <span class="feature-sep">✦</span>
+        <span class="feature-pill"><span class="feature-dot"></span>USAPA Approved</span>
+        <span class="feature-sep">✦</span>
+        <span class="feature-pill"><span class="feature-dot"></span>30-Day Returns</span>
+        <span class="feature-sep">✦</span>
+      </div>
     </div>
 
     <div class="categories">
 
       <!-- T-Shirt card -->
-      <a class="cat-card" href="shop.html">
+      <a class="cat-card reveal" href="shop.html">
         <div class="cat-card-img">
           <img class="cat-icon-svg cat-icon-tee" src="images/tee.png" alt="Custom pickleball t-shirt">
         </div>
@@ -450,7 +473,7 @@
       </a>
 
       <!-- Cap card -->
-      <a class="cat-card" href="shop.html">
+      <a class="cat-card reveal reveal-d1" href="shop.html">
         <div class="cat-card-img">
           <img class="cat-icon-svg cat-icon-cap" src="images/caps.png" alt="Custom pickleball hat">
         </div>
@@ -462,7 +485,7 @@
 
     </div>
 
-    <div class="coming-soon-strip">
+    <div class="coming-soon-strip reveal">
       <h2>Something fresh is coming.</h2>
       <p>We're putting the finishing touches on our first drop. Sign up above to get first access when we launch.</p>
     </div>
@@ -519,5 +542,6 @@
   </script>
 
   <script src="cart.js"></script>
+  <script src="animations.js"></script>
 </body>
 </html>
