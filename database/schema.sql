@@ -105,7 +105,7 @@ create policy "anon insert contact_messages"
 create policy "anon insert customers"
   on customers for insert to anon with check (true);
 
--- Public can place orders
+-- Public can place orders (we'll validate the order details in the application code)
 create policy "anon insert orders"
   on orders for insert to anon with check (true);
 
