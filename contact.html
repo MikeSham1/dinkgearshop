@@ -15,42 +15,34 @@
   <meta property="og:title" content="Contact Us — Dink Gear Shop">
   <meta property="og:description" content="Have a question? We're here to help. Reach out to the Dink Gear Shop team.">
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
-    .page-hero {
-      background-color: #1e4d1e;
-      color: #fff;
-      text-align: center;
-      padding: 3rem 2rem;
-    }
-
-    .page-hero h1 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-
-    .page-hero p {
-      color: #c8e6c8;
-      font-size: 0.95rem;
-    }
-
     .contact-section {
-      max-width: 600px;
+      max-width: 580px;
       margin: 5rem auto;
       padding: 0 2rem;
     }
 
+    .contact-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      color: var(--green-bright);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
     .contact-section h2 {
-      font-size: 1.6rem;
-      color: #1e4d1e;
+      font-size: var(--fs-h2);
+      color: var(--green-dark);
       margin-bottom: 0.5rem;
     }
 
     .contact-section > p {
-      color: #888;
-      font-size: 0.9rem;
+      color: var(--text-muted);
+      font-size: var(--fs-body);
       margin-bottom: 2rem;
     }
 
@@ -62,21 +54,22 @@
 
     .contact-form input,
     .contact-form textarea {
-      padding: 0.75rem 1.25rem;
-      border: 2px solid #b2dfb2;
-      border-radius: 8px;
-      font-size: 0.95rem;
+      padding: 0.85rem 1.25rem;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: var(--fs-body);
       font-family: 'Poppins', sans-serif;
       outline: none;
-      background-color: #fff;
-      color: #333;
-      transition: border-color 0.2s;
+      background: var(--bg-card);
+      color: var(--text);
+      transition: border-color 0.2s, box-shadow 0.2s;
       width: 100%;
     }
 
     .contact-form input:focus,
     .contact-form textarea:focus {
-      border-color: #2d6a2d;
+      border-color: var(--lime-dim);
+      box-shadow: 0 0 0 3px rgba(200,240,0,0.12);
     }
 
     .contact-form textarea {
@@ -85,31 +78,33 @@
     }
 
     .contact-form button {
-      padding: 0.75rem;
-      background-color: #2d6a2d;
+      padding: 0.85rem;
+      background: var(--green-dark);
       color: #fff;
       border: none;
-      border-radius: 8px;
-      font-size: 0.95rem;
+      border-radius: var(--radius-sm);
+      font-size: var(--fs-body);
       font-family: 'Poppins', sans-serif;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
-      transition: background-color 0.2s;
+      transition: background 0.2s, transform 0.15s;
     }
 
     .contact-form button:hover {
-      background-color: #1e4d1e;
+      background: var(--green-mid);
+      transform: scale(1.02);
     }
 
     .success-msg {
       display: none;
-      background-color: #d4edda;
-      color: #2d6a2d;
-      border: 1px solid #b2dfb2;
-      border-radius: 8px;
-      padding: 1rem;
+      background: rgba(200,240,0,0.1);
+      color: var(--green-dark);
+      border: 1.5px solid rgba(200,240,0,0.4);
+      border-radius: var(--radius-sm);
+      padding: 1.1rem;
       text-align: center;
-      font-size: 0.9rem;
+      font-size: var(--fs-body);
+      font-weight: 600;
       margin-top: 1rem;
     }
   </style>
@@ -135,8 +130,9 @@
     </div>
 
     <div class="contact-section">
+      <span class="contact-label">Contact</span>
       <h2>Get in Touch</h2>
-      <p>Have a question about an order, a product, or just want to talk pickleball? We'd love to hear from you.</p>
+      <p>Have a question or just want to talk pickleball? We'd love to hear from you.</p>
 
       <form class="contact-form" onsubmit="handleContact(event)">
         <input type="text" placeholder="Your name" required />
@@ -154,7 +150,7 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <a class="footer-logo" href="index.html">Dink <span>Gear</span> Shop</a>
-        <p>Premium pickleball equipment for every level. Built by players, for players.</p>
+        <p>Custom pickleball tees, hats, and shoes. Built for the culture.</p>
       </div>
       <div class="footer-col">
         <h4>Navigate</h4>

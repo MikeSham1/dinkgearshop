@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>About Us — Dink Gear Shop</title>
-  <meta name="description" content="Dink Gear Shop was founded by pickleball players, for pickleball players. Learn our story and mission to bring the best gear to your court.">
-  <meta name="keywords" content="about dink gear shop, pickleball store, pickleball brand, who we are">
+  <meta name="description" content="Dink Gear Shop was born from a love of pickleball and custom style. Learn our story.">
+  <meta name="keywords" content="about dink gear shop, custom pickleball shirts, pickleball apparel brand, pickleball lifestyle">
   <link rel="canonical" href="https://dinkgearshop.com/about.html">
 
   <!-- Open Graph -->
@@ -15,76 +15,96 @@
   <meta property="og:title" content="About Us — Dink Gear Shop">
   <meta property="og:description" content="Founded by pickleball players, for pickleball players. Learn our story.">
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
-    .page-hero {
-      background-color: #1e4d1e;
-      color: #fff;
-      text-align: center;
-      padding: 3rem 2rem;
-    }
-
-    .page-hero h1 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-
-    .page-hero p {
-      color: #c8e6c8;
-      font-size: 0.95rem;
-    }
-
     .about-section {
-      max-width: 800px;
+      max-width: 780px;
       margin: 5rem auto;
       padding: 0 2rem;
     }
 
-    .about-section h2 {
-      font-size: 1.6rem;
-      color: #1e4d1e;
-      margin-bottom: 1rem;
+    .about-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      color: var(--green-bright);
+      margin-bottom: 0.75rem;
+      display: block;
     }
 
-    .about-section p {
-      color: #555;
-      line-height: 1.8;
+    .about-section h2 {
+      font-size: 2rem;
+      color: var(--green-dark);
+      margin-bottom: 1.25rem;
+      line-height: 1.3;
+    }
+
+    .about-section > p {
+      color: var(--text-muted);
+      line-height: 1.9;
       margin-bottom: 1.5rem;
-      font-size: 0.95rem;
+      font-size: var(--fs-body);
+    }
+
+    .about-divider {
+      width: 50px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--green-mid), var(--lime));
+      border-radius: 2px;
+      margin: 2.5rem 0;
     }
 
     .values-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 1.5rem;
-      margin-top: 3rem;
+      gap: 1.25rem;
+      margin-top: 1rem;
     }
 
     .value-card {
-      background-color: #f4faf4;
-      border-radius: 12px;
-      padding: 1.5rem;
-      text-align: center;
-      border: 1px solid #d4edda;
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      padding: 1.75rem 1.5rem;
+      border: 1.5px solid var(--border);
+      box-shadow: var(--shadow-sm);
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      position: relative;
+      overflow: hidden;
     }
 
-    .value-icon {
-      font-size: 2rem;
-      margin-bottom: 0.75rem;
+    .value-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--green-mid), var(--lime));
+      opacity: 0;
+      transition: opacity 0.2s;
     }
+
+    .value-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--lime-soft);
+    }
+
+    .value-card:hover::after { opacity: 1; }
 
     .value-card h3 {
-      font-size: 1rem;
-      color: #1e4d1e;
+      font-size: var(--fs-ui);
+      color: var(--green-dark);
       margin-bottom: 0.5rem;
+      font-weight: 700;
     }
 
     .value-card p {
-      font-size: 0.82rem;
-      color: #888;
-      line-height: 1.5;
+      font-size: var(--fs-small);
+      color: var(--text-muted);
+      line-height: 1.65;
       margin: 0;
     }
   </style>
@@ -105,35 +125,56 @@
 
   <main>
     <div class="page-hero">
-      <h1>About Us</h1>
-      <p>Founded by pickleball players, for pickleball players</p>
+      <h1>We Love Pickleball</h1>
+      <p>And we wanted gear that shows it</p>
+    </div>
+
+    <div class="stats-bar">
+      <div class="stat-item">
+        <span class="stat-number">30M+</span>
+        <span class="stat-label">US Pickleball Players</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">#1</span>
+        <span class="stat-label">Fastest Growing Sport</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-number">2</span>
+        <span class="stat-label">Product Categories</span>
+      </div>
     </div>
 
     <div class="about-section">
-      <h2>Our Story</h2>
+      <div class="about-label">Our Story</div>
+      <h2>Pickleball is one of the fastest growing sports in the world — and we're obsessed with it.</h2>
       <p>
-        Dink Gear Shop started on a court in Los Angeles with a simple frustration: great pickleball gear was hard to find and even harder to trust. We spent hours researching paddles, testing balls, and returning shoes that just didn't hold up.
+        It started the way most good things do: a group of friends on a court, completely hooked after their first game. Pickleball is fast, fun, competitive, and social all at once. It doesn't matter if you're 20 or 60 — once you start playing, you can't stop.
       </p>
       <p>
-        So we decided to build the store we always wished existed — one that curates only the best equipment, explains what actually matters, and ships fast. Whether you're picking up a paddle for the first time or you've been dinking since before it was cool, we've got gear for your game.
+        After a while we wanted to wear our love for the game. Custom shirts, hats, shoes — something that said "I play pickleball and I'm proud of it." But finding quality, actually cool pickleball apparel? Way harder than it should be.
       </p>
+      <p>
+        So we made our own. Dink Gear Shop is where pickleball culture meets custom style. We design pieces you'll actually want to wear — on the court and off it.
+      </p>
+
+      <div class="about-divider"></div>
 
       <div class="values-grid">
         <div class="value-card">
-          <h3>Player-Tested</h3>
-          <p>Every product we carry has been tested on real courts by real players.</p>
+          <h3>Made for Players</h3>
+          <p>Designed by people who actually play — we know what looks good on and off the court.</p>
+        </div>
+        <div class="value-card">
+          <h3>Custom Everything</h3>
+          <p>Tees, hats, and shoes built around pickleball culture. Nothing generic.</p>
         </div>
         <div class="value-card">
           <h3>Quality First</h3>
-          <p>We only stock gear we'd use ourselves. No filler, no fluff.</p>
+          <p>We only sell gear we'd wear ourselves. Comfortable, durable, and sharp.</p>
         </div>
         <div class="value-card">
-          <h3>Fast Shipping</h3>
-          <p>Orders ship within 24 hours so you're never waiting on the sidelines.</p>
-        </div>
-        <div class="value-card">
-          <h3>Community</h3>
-          <p>We're building more than a shop — we're building a pickleball community.</p>
+          <h3>Built on Community</h3>
+          <p>Pickleball brings people together. So does Dink Gear Shop.</p>
         </div>
       </div>
     </div>
@@ -143,7 +184,7 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <a class="footer-logo" href="index.html">Dink <span>Gear</span> Shop</a>
-        <p>Premium pickleball equipment for every level. Built by players, for players.</p>
+        <p>Custom pickleball tees, hats, and shoes. Built for the culture.</p>
       </div>
       <div class="footer-col">
         <h4>Navigate</h4>

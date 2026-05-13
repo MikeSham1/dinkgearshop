@@ -4,122 +4,337 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Dink Gear Shop — Premium Pickleball Equipment</title>
-  <meta name="description" content="Dink Gear Shop is your one-stop destination for premium pickleball paddles, balls, shoes, and accessories. Coming soon!">
-  <meta name="keywords" content="pickleball gear, pickleball paddle, pickleball equipment, pickleball shop, buy pickleball">
+  <title>Dink Gear Shop — Custom Pickleball Apparel</title>
+  <meta name="description" content="Custom pickleball t-shirts, hats, and shoes for people who love the game. Launching soon.">
+  <meta name="keywords" content="custom pickleball shirts, pickleball apparel, pickleball hats, pickleball shoes, pickleball clothing">
   <link rel="canonical" href="https://dinkgearshop.com/">
-
-  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://dinkgearshop.com/">
-  <meta property="og:title" content="Dink Gear Shop — Premium Pickleball Equipment">
-  <meta property="og:description" content="Your one-stop shop for premium pickleball gear. Paddles, balls, shoes, and more.">
+  <meta property="og:title" content="Dink Gear Shop — Custom Pickleball Apparel">
+  <meta property="og:description" content="Custom pickleball tees, hats, and shoes. Designed for the court, made for everywhere.">
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <style>
+    /* Animated hero */
     .hero {
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      min-height: calc(100vh - 70px);
-      padding: 2rem;
-      background: radial-gradient(ellipse at center, #e8f5e8 0%, #f4faf4 70%);
       text-align: center;
+      padding: 2rem;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(-45deg, #071a0a, #0d2b12, #1a5c2a, #0f3d1a, #071a0a);
+      background-size: 400% 400%;
+      animation: gradientShift 10s ease infinite;
     }
+
+    @keyframes gradientShift {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Glowing orb */
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(200,240,0,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: pulse 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.6; }
+      50%       { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+    }
+
+    .hero-content { position: relative; z-index: 1; max-width: 720px; }
 
     .badge {
       display: inline-block;
-      background-color: #d4edda;
-      color: #2d6a2d;
-      font-size: 0.8rem;
-      letter-spacing: 2px;
+      background: rgba(200, 240, 0, 0.15);
+      color: #c8f000;
+      border: 1px solid rgba(200, 240, 0, 0.3);
+      font-size: 0.72rem;
+      letter-spacing: 3px;
       text-transform: uppercase;
-      padding: 0.4rem 1.2rem;
-      border-radius: 20px;
-      margin-bottom: 1.5rem;
-      border: 1px solid #b2dfb2;
+      padding: 0.45rem 1.25rem;
+      border-radius: 100px;
+      margin-bottom: 2rem;
+      font-weight: 600;
+      backdrop-filter: blur(8px);
     }
 
-    h1 {
-      font-size: 3rem;
-      color: #1e4d1e;
-      line-height: 1.3;
-      max-width: 700px;
-      margin-bottom: 1.2rem;
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4.2rem);
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      margin-bottom: 1.25rem;
     }
 
-    .subtitle {
-      font-size: 1rem;
-      color: #888;
-      letter-spacing: 1px;
-      margin-bottom: 2.5rem;
+    .hero h1 .accent { color: #c8f000; }
+
+    .hero-sub {
+      font-size: var(--fs-sub);
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 3rem;
+      font-weight: 400;
     }
 
-    .divider {
-      width: 60px;
-      height: 3px;
-      background-color: #7dce7d;
-      border-radius: 2px;
-      margin: 0 auto;
-    }
-
+    /* Email form */
     .email-form {
-      margin-top: 2.5rem;
       display: flex;
-      gap: 0.75rem;
+      gap: 0.6rem;
       flex-wrap: wrap;
       justify-content: center;
     }
 
     .email-form input[type="email"] {
-      padding: 0.75rem 1.25rem;
-      border: 2px solid #b2dfb2;
-      border-radius: 8px;
-      font-size: 0.95rem;
+      padding: 0.85rem 1.4rem;
+      border: 1.5px solid rgba(255,255,255,0.15);
+      border-radius: 100px;
+      font-size: var(--fs-body);
       font-family: 'Poppins', sans-serif;
       width: 300px;
       outline: none;
-      background-color: #fff;
-      color: #333;
-      transition: border-color 0.2s;
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      transition: border-color 0.2s, background 0.2s;
+      backdrop-filter: blur(8px);
     }
 
+    .email-form input[type="email"]::placeholder { color: rgba(255,255,255,0.4); }
+
     .email-form input[type="email"]:focus {
-      border-color: #2d6a2d;
+      border-color: rgba(200,240,0,0.6);
+      background: rgba(255,255,255,0.12);
     }
 
     .email-form button {
-      padding: 0.75rem 1.75rem;
-      background-color: #2d6a2d;
-      color: #fff;
+      padding: 0.85rem 2rem;
+      background: #c8f000;
+      color: #071a0a;
       border: none;
-      border-radius: 8px;
-      font-size: 0.95rem;
+      border-radius: 100px;
+      font-size: var(--fs-body);
       font-family: 'Poppins', sans-serif;
-      font-weight: 600;
+      font-weight: 700;
       cursor: pointer;
-      transition: background-color 0.2s;
+      transition: background 0.2s, transform 0.15s;
+      white-space: nowrap;
     }
 
     .email-form button:hover {
-      background-color: #1e4d1e;
+      background: #d8ff1a;
+      transform: scale(1.03);
     }
 
     .email-note {
-      margin-top: 0.85rem;
-      font-size: 0.78rem;
-      color: #aaa;
+      margin-top: 1rem;
+      font-size: var(--fs-label);
+      color: rgba(255,255,255,0.3);
+    }
+
+    /* Paddle scene */
+    .paddle-scene {
+      position: relative;
+      margin: 3rem auto 0;
+      width: 220px;
+      height: 260px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+    }
+
+    .paddle-shadow {
+      position: absolute;
+      bottom: 2px;
+      left: 50%;
+      transform: translateX(-64%);
+      width: 72px;
+      height: 13px;
+      background: rgba(0,0,0,0.45);
+      border-radius: 50%;
+      filter: blur(8px);
+      animation: pgShadow 3.5s ease-in-out infinite;
+    }
+
+    @keyframes pgShadow {
+      0%, 100% { opacity: 0.45; transform: translateX(-64%) scale(1); }
+      50%       { opacity: 0.2;  transform: translateX(-64%) scale(0.6); }
+    }
+
+    .paddle-svg {
+      width: 118px;
+      filter: drop-shadow(0 16px 36px rgba(0,0,0,0.55));
+      animation: pgFloat 3.5s ease-in-out infinite;
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes pgFloat {
+      0%        { transform: translateY(0px)   rotate(-8deg); }
+      30%       { transform: translateY(-18px) rotate(-4deg); }
+      60%       { transform: translateY(-24px) rotate(-6deg); }
+      100%      { transform: translateY(0px)   rotate(-8deg); }
+    }
+
+    .pickleball-ball {
+      position: absolute;
+      top: 14px;
+      right: 10px;
+      width: 38px;
+      filter: drop-shadow(0 5px 10px rgba(0,0,0,0.35));
+      animation: pgBall 3.5s ease-in-out infinite;
+    }
+
+    @keyframes pgBall {
+      0%   { transform: translate(0px,   0px); }
+      20%  { transform: translate(10px, -22px) rotate(30deg); }
+      45%  { transform: translate(18px, -10px) rotate(55deg); }
+      70%  { transform: translate(8px,   6px)  rotate(35deg); }
+      100% { transform: translate(0px,   0px)  rotate(0deg); }
+    }
+
+    /* Category strips */
+    .categories {
+      display: flex;
+      justify-content: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      padding: 5rem 2rem;
+      background: var(--bg);
+      background-image: radial-gradient(circle, rgba(42,143,62,0.08) 1.5px, transparent 1.5px);
+      background-size: 24px 24px;
+    }
+
+    .cat-card {
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      text-align: center;
+      text-decoration: none;
+      color: var(--green-dark);
+      flex: 1;
+      min-width: 190px;
+      max-width: 250px;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .cat-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--lime);
+    }
+
+    .cat-card-img {
+      height: 130px;
+      background: linear-gradient(135deg, #e2f5e5, #c6e9cc);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.25s;
+    }
+
+    .cat-card:hover .cat-card-img {
+      background: linear-gradient(135deg, #cce8d0, #b0ddb8);
+    }
+
+    .cat-card-body {
+      padding: 1.4rem 1.5rem 1.8rem;
+    }
+
+    .cat-card h3 {
+      font-size: var(--fs-ui);
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .cat-card p {
+      font-size: var(--fs-small);
+      color: var(--text-muted);
+    }
+
+    /* Category icon animations */
+    .cat-icon-svg {
+      max-height: 90px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 6px 14px rgba(26,92,42,0.35));
+      animation-duration: 4s;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+    }
+
+    .cat-icon-tee { animation-name: teeIdle; }
+    .cat-icon-cap { animation-name: capIdle; animation-delay: 1.4s; }
+
+    @keyframes teeIdle {
+      0%, 100% { transform: rotate(-4deg) translateY(0px); }
+      50%       { transform: rotate(3deg)  translateY(-9px); }
+    }
+
+    @keyframes capIdle {
+      0%, 100% { transform: rotate(6deg)  translateY(0px); }
+      50%       { transform: rotate(-5deg) translateY(-10px); }
+    }
+
+    .cat-card:hover .cat-icon-svg {
+      animation-play-state: paused;
+      filter: drop-shadow(0 10px 22px rgba(26,92,42,0.55)) brightness(1.1);
+      transition: filter 0.25s ease;
+    }
+
+    /* Coming soon section */
+    .coming-soon-strip {
+      background: linear-gradient(135deg, var(--green-darkest), var(--green-dark));
+      padding: 5rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .coming-soon-strip::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, rgba(200,240,0,0.07) 0%, transparent 65%);
+    }
+
+    .coming-soon-strip h2 {
+      font-size: 2rem;
+      color: #fff;
+      margin-bottom: 0.75rem;
+      position: relative;
+    }
+
+    .coming-soon-strip p {
+      color: rgba(255,255,255,0.55);
+      font-size: var(--fs-body);
+      max-width: 480px;
+      margin: 0 auto;
+      position: relative;
     }
   </style>
 </head>
 <body>
 
   <nav>
-    <a class="logo" href="index.html">
-      Dink <span>Gear</span> Shop
-    </a>
+    <a class="logo" href="index.html">Dink <span>Gear</span> Shop</a>
     <ul class="nav-links">
       <li><a href="index.html" class="active">Home</a></li>
       <li><a href="about.html">About</a></li>
@@ -130,16 +345,126 @@
 
   <main>
     <div class="hero">
-      <div class="badge">Coming Soon</div>
-      <h1>Pickleball is a great sport. You should try it sometime!</h1>
-      <div class="divider"></div>
-      <p class="subtitle" style="margin-top: 1.5rem;">This website is coming soon!</p>
+      <div class="hero-content">
+        <div class="badge">Launching Soon</div>
+        <h1>Custom Pickleball Gear<br>for the <span class="accent">Passionate Pickleballer</span></h1>
+        <p class="hero-sub">Tees and hats — designed for the court, made for everywhere.</p>
+        <form class="email-form" onsubmit="handleSubmit(event)">
+          <input type="email" placeholder="Enter your email for early access" required />
+          <button type="submit">Notify Me</button>
+        </form>
+        <p class="email-note">No spam, ever. We'll only reach out when we launch.</p>
 
-      <form class="email-form" onsubmit="handleSubmit(event)">
-        <input type="email" placeholder="Enter your email address" required />
-        <button type="submit">Notify Me</button>
-      </form>
-      <p class="email-note">No spam, ever. We'll only reach out when we launch.</p>
+        <!-- Paddle scene -->
+        <div class="paddle-scene">
+          <div class="paddle-shadow"></div>
+
+          <svg class="paddle-svg" viewBox="0 0 140 265" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="pgFace" x1="10%" y1="0%" x2="90%" y2="100%">
+                <stop offset="0%" stop-color="#2a8f3e"/>
+                <stop offset="100%" stop-color="#1a5c2a"/>
+              </linearGradient>
+              <linearGradient id="pgHandle" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%"   stop-color="#0d2b12"/>
+                <stop offset="50%"  stop-color="#1a3a20"/>
+                <stop offset="100%" stop-color="#0d2b12"/>
+              </linearGradient>
+              <radialGradient id="pgShine" cx="32%" cy="22%" r="55%">
+                <stop offset="0%"   stop-color="rgba(255,255,255,0.18)"/>
+                <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+              </radialGradient>
+            </defs>
+
+            <!-- Handle -->
+            <rect x="51" y="160" width="38" height="96" rx="13" fill="url(#pgHandle)"/>
+            <line x1="53" y1="178" x2="87" y2="178" stroke="rgba(200,240,0,0.22)" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="53" y1="192" x2="87" y2="192" stroke="rgba(200,240,0,0.22)" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="53" y1="206" x2="87" y2="206" stroke="rgba(200,240,0,0.22)" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="53" y1="220" x2="87" y2="220" stroke="rgba(200,240,0,0.22)" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="53" y1="234" x2="87" y2="234" stroke="rgba(200,240,0,0.22)" stroke-width="1.5" stroke-linecap="round"/>
+            <!-- End cap -->
+            <rect x="51" y="248" width="38" height="10" rx="7" fill="#071a0a"/>
+
+            <!-- Paddle face -->
+            <rect x="8" y="8" width="124" height="158" rx="42" fill="url(#pgFace)"/>
+            <!-- Lime edge trim -->
+            <rect x="8" y="8" width="124" height="158" rx="42" fill="none" stroke="#c8f000" stroke-width="2.5" stroke-opacity="0.5"/>
+            <!-- Inner dashed ring -->
+            <circle cx="70" cy="84" r="30" fill="none" stroke="rgba(200,240,0,0.28)" stroke-width="1.5" stroke-dasharray="4 3"/>
+            <!-- Brand text on face -->
+            <text x="70" y="79" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="800" fill="rgba(200,240,0,0.82)" letter-spacing="3">DINK</text>
+            <text x="70" y="94" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9"  font-weight="600" fill="rgba(200,240,0,0.48)" letter-spacing="2">GEAR</text>
+            <!-- Shine overlay -->
+            <rect x="8" y="8" width="124" height="158" rx="42" fill="url(#pgShine)"/>
+            <!-- Top highlight stroke -->
+            <path d="M 42 11 Q 70 7 98 11" stroke="rgba(255,255,255,0.22)" stroke-width="2" fill="none" stroke-linecap="round"/>
+          </svg>
+
+          <!-- Pickleball -->
+          <div class="pickleball-ball">
+            <svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="pgBall" cx="35%" cy="28%" r="65%">
+                  <stop offset="0%"   stop-color="#e0ff30"/>
+                  <stop offset="100%" stop-color="#a8cc00"/>
+                </radialGradient>
+              </defs>
+              <circle cx="22" cy="22" r="21" fill="url(#pgBall)"/>
+              <!-- Holes -->
+              <circle cx="15" cy="15" r="2.8" fill="rgba(7,26,10,0.26)"/>
+              <circle cx="29" cy="13" r="2.8" fill="rgba(7,26,10,0.26)"/>
+              <circle cx="13" cy="27" r="2.8" fill="rgba(7,26,10,0.26)"/>
+              <circle cx="27" cy="29" r="2.8" fill="rgba(7,26,10,0.26)"/>
+              <circle cx="22" cy="21" r="2.8" fill="rgba(7,26,10,0.26)"/>
+              <circle cx="31" cy="22" r="2"   fill="rgba(7,26,10,0.2)"/>
+              <circle cx="19" cy="33" r="2"   fill="rgba(7,26,10,0.2)"/>
+              <!-- Shine -->
+              <ellipse cx="15" cy="13" rx="6" ry="5" fill="rgba(255,255,255,0.35)"/>
+            </svg>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Feature strip -->
+    <div class="feature-strip">
+      <div class="feature-pill"><span class="feature-dot"></span>Free Shipping over $75</div>
+      <div class="feature-pill"><span class="feature-dot"></span>Designed by Players</div>
+      <div class="feature-pill"><span class="feature-dot"></span>Custom Every Drop</div>
+      <div class="feature-pill"><span class="feature-dot"></span>Quality First</div>
+    </div>
+
+    <div class="categories">
+
+      <!-- T-Shirt card -->
+      <a class="cat-card" href="shop.html">
+        <div class="cat-card-img">
+          <img class="cat-icon-svg cat-icon-tee" src="images/shirt.png" alt="Custom pickleball t-shirt">
+        </div>
+        <div class="cat-card-body">
+          <h3>T-Shirts</h3>
+          <p>Custom graphic tees</p>
+        </div>
+      </a>
+
+      <!-- Cap card -->
+      <a class="cat-card" href="shop.html">
+        <div class="cat-card-img">
+          <img class="cat-icon-svg cat-icon-cap" src="images/hat.png" alt="Custom pickleball hat">
+        </div>
+        <div class="cat-card-body">
+          <h3>Hats</h3>
+          <p>Snapbacks &amp; dad hats</p>
+        </div>
+      </a>
+
+    </div>
+
+    <div class="coming-soon-strip">
+      <h2>Something fresh is coming.</h2>
+      <p>We're putting the finishing touches on our first drop. Sign up above to get first access when we launch.</p>
     </div>
   </main>
 
@@ -147,7 +472,7 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <a class="footer-logo" href="index.html">Dink <span>Gear</span> Shop</a>
-        <p>Premium pickleball equipment for every level. Built by players, for players.</p>
+        <p>Custom pickleball tees, hats, and shoes. Built for the culture.</p>
       </div>
       <div class="footer-col">
         <h4>Navigate</h4>
@@ -186,8 +511,8 @@
       const btn = e.target.querySelector('button');
       const input = e.target.querySelector('input');
       btn.textContent = "You're on the list!";
-      btn.style.backgroundColor = '#7dce7d';
-      btn.style.color = '#1e4d1e';
+      btn.style.background = 'rgba(200,240,0,0.3)';
+      btn.style.color = '#c8f000';
       btn.disabled = true;
       input.disabled = true;
     }
