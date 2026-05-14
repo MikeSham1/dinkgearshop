@@ -75,6 +75,75 @@ const DinkDB = {
     if (itemsErr) throw itemsErr;
 
     return order;
+  },
+
+  // ── Admin functions (require authenticated session) ──────────────
+
+  async adminLogin(email, password) {
+    const { data, error } = await _db.auth.signInWithPassword({ email, password });
+    if (error) throw error;
+    return data;
+  },
+
+  async adminLogout() {
+    await _db.auth.signOut();
+  },
+
+  async adminGetSession() {
+    const { data } = await _db.auth.getSession();
+    return data.session;
+  },
+
+  async adminGetOrders() {
+    const { data, error } = await _db
+      .from('orders')
+      .select(`*, order_items(*)`)
+      .order('created_at', { ascending: false });
+    if (error) throw error;
+    return data;
+  },
+
+  async adminUpdateOrderStatus(orderId, status) {
+    const { error } = await _db
+      .from('orders')
+      .update({ status })
+      .eq('id', orderId);
+    if (error) throw error;
+  },
+
+  async adminGetMessages() {
+    const { data, error } = await _db
+      .from('contact_messages')
+      .select('*')
+      .order('created_at', { ascending: false });
+    if (error) throw error;
+    return data;
+  },
+
+  async adminGetEmailSignups() {
+    const { data, error } = await _db
+      .from('email_signups')
+      .select('*')
+      .order('created_at', { ascending: false });
+    if (error) throw error;
+    return data;
+  },
+
+  async adminGetInventory() {
+    const { data, error } = await _db
+      .from('products')
+      .select('*')
+      .order('id');
+    if (error) throw error;
+    return data;
+  },
+
+  async adminUpdateStock(productId, stock) {
+    const { error } = await _db
+      .from('products')
+      .update({ stock })
+      .eq('id', productId);
+    if (error) throw error;
   }
 
 };

@@ -56,6 +56,130 @@
       margin: 2.5rem 0;
     }
 
+    .growth-section {
+      max-width: 820px;
+      margin: 0 auto 3rem;
+      padding: 0 2rem;
+    }
+
+    .growth-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .growth-header-left span {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      color: var(--green-bright);
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .growth-header-left h2 {
+      font-size: 1.15rem;
+      color: var(--green-dark);
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .chart-toggle {
+      display: flex;
+      gap: 0.4rem;
+    }
+
+    .chart-toggle-btn {
+      padding: 0.3rem 0.85rem;
+      border-radius: 99px;
+      border: 1.5px solid var(--border);
+      background: transparent;
+      color: var(--text-muted);
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .chart-toggle-btn.active {
+      background: var(--green-dark);
+      border-color: rgba(200,240,0,0.3);
+      color: var(--lime);
+    }
+
+    .chart-wrap {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem 0.75rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .chart-wrap::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 80% 50%, rgba(200,240,0,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .chart-stat-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1.25rem;
+      text-align: right;
+      pointer-events: none;
+    }
+
+    .chart-stat-badge .big-num {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: #c8f000;
+      line-height: 1;
+      letter-spacing: -0.5px;
+    }
+
+    .chart-stat-badge .big-label {
+      display: block;
+      font-size: 0.6rem;
+      font-weight: 600;
+      color: rgba(232,245,233,0.38);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-top: 0.2rem;
+    }
+
+    .chart-growth-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      background: rgba(200,240,0,0.1);
+      border: 1px solid rgba(200,240,0,0.2);
+      color: #c8f000;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 0.2rem 0.65rem;
+      border-radius: 99px;
+      margin-left: 0.6rem;
+      vertical-align: middle;
+      letter-spacing: 0.3px;
+    }
+
+    .chart-source {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      margin-top: 0.5rem;
+      text-align: right;
+      opacity: 0.45;
+    }
+
     .values-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -145,6 +269,27 @@
       </div>
     </div>
 
+    <div class="growth-section reveal">
+      <div class="growth-header">
+        <div class="growth-header-left">
+          <span>By the Numbers</span>
+          <h2>Pickleball players in the US — 2013 to 2025 <span class="chart-growth-pill">↑ 3,616% since 2013</span></h2>
+        </div>
+        <div class="chart-toggle">
+          <button class="chart-toggle-btn active" onclick="setRange('all', this)">All Years</button>
+          <button class="chart-toggle-btn" onclick="setRange('recent', this)">2020 – 2025</button>
+        </div>
+      </div>
+      <div class="chart-wrap">
+        <div class="chart-stat-badge">
+          <div class="big-num" id="chart-current-val">22.3M</div>
+          <span class="big-label">players today</span>
+        </div>
+        <canvas id="growthChart" height="200"></canvas>
+      </div>
+      <p class="chart-source">Sources: USA Pickleball Association · SFIA</p>
+    </div>
+
     <div class="about-section reveal">
       <div class="about-label">Our Story</div>
       <h2>Pickleball is one of the fastest growing sports in the world — and we're obsessed with it.</h2>
@@ -179,6 +324,7 @@
         </div>
       </div>
     </div>
+
   </main>
 
   <footer>
@@ -220,5 +366,186 @@
 
   <script src="cart.js"></script>
   <script src="animations.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+  <script>
+    const ALL_DATA = {
+      labels: ['2013','2014','2015','2016','2017','2018','2019','2020','2021','2022','2023','2024','2025'],
+      values: [0.6, 2.5, 2.8, 3.1, 3.3, 3.5, 3.5, 4.2, 4.8, 8.9, 13.6, 19.8, 22.3]
+    };
+    const RECENT_DATA = {
+      labels: ['2020','2021','2022','2023','2024','2025'],
+      values: [4.2, 4.8, 8.9, 13.6, 19.8, 22.3]
+    };
+
+    let chart, pulseTimer;
+
+    // Gradient line left→right (deep green → lime)
+    const gradientLinePlugin = {
+      id: 'gradientLine',
+      beforeRender(c) {
+        const { ctx, chartArea } = c;
+        if (!chartArea) return;
+        const g = ctx.createLinearGradient(chartArea.left, 0, chartArea.right, 0);
+        g.addColorStop(0,    'rgba(26,102,48,0.85)');
+        g.addColorStop(0.55, 'rgba(140,210,0,1)');
+        g.addColorStop(1,    '#c8f000');
+        c.data.datasets[0].borderColor = g;
+      }
+    };
+
+    // Glow behind line
+    const glowPlugin = {
+      id: 'glow',
+      beforeDatasetsDraw(c) { c.ctx.save(); c.ctx.shadowColor = 'rgba(200,240,0,0.55)'; c.ctx.shadowBlur = 16; },
+      afterDatasetsDraw(c)  { c.ctx.restore(); }
+    };
+
+    // Pulsing ring on last point + "Sport Explodes" annotation
+    const overlayPlugin = {
+      id: 'overlay',
+      afterDraw(c) {
+        const meta = c.getDatasetMeta(0);
+        if (!meta.data.length) return;
+        const { ctx, scales, chartArea, data } = c;
+
+        // "Sport Explodes" marker at 2022
+        const idx = data.labels.indexOf('2022');
+        if (idx !== -1 && meta.data[idx]) {
+          const px = meta.data[idx].x;
+          const py = meta.data[idx].y;
+          ctx.save();
+          ctx.beginPath();
+          ctx.setLineDash([3, 4]);
+          ctx.moveTo(px, py - 12);
+          ctx.lineTo(px, chartArea.top + 22);
+          ctx.strokeStyle = 'rgba(200,240,0,0.28)';
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          ctx.setLineDash([]);
+          ctx.font = '700 8.5px Poppins, sans-serif';
+          ctx.fillStyle = 'rgba(200,240,0,0.55)';
+          ctx.textAlign = 'center';
+          ctx.fillText('SPORT EXPLODES', px, chartArea.top + 14);
+          ctx.restore();
+        }
+
+        // Pulsing ring on last point
+        const last = meta.data[meta.data.length - 1];
+        const t = performance.now() / 1000;
+        const p = (Math.sin(t * 2.8) + 1) / 2;
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(last.x, last.y, 5 + p * 10, 0, Math.PI * 2);
+        ctx.strokeStyle = `rgba(200,240,0,${0.55 - p * 0.48})`;
+        ctx.lineWidth = 1.5;
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(last.x, last.y, 5, 0, Math.PI * 2);
+        ctx.fillStyle = '#c8f000';
+        ctx.shadowColor = 'rgba(200,240,0,0.9)';
+        ctx.shadowBlur = 8;
+        ctx.fill();
+        ctx.restore();
+      }
+    };
+
+    function buildChart(data) {
+      const canvas = document.getElementById('growthChart');
+      const ctx = canvas.getContext('2d');
+      const h = canvas.offsetHeight || 200;
+      const fillGrad = ctx.createLinearGradient(0, 0, 0, h);
+      fillGrad.addColorStop(0,    'rgba(200,240,0,0.28)');
+      fillGrad.addColorStop(0.6,  'rgba(200,240,0,0.06)');
+      fillGrad.addColorStop(1,    'rgba(200,240,0,0)');
+
+      if (chart) { chart.destroy(); clearInterval(pulseTimer); }
+
+      const delay = 110;
+      const prevY = (c) => c.index === 0
+        ? c.chart.scales.y.getPixelForValue(0)
+        : c.chart.getDatasetMeta(c.datasetIndex).data[c.index - 1].getProps(['y'], true).y;
+
+      chart = new Chart(ctx, {
+        type: 'line',
+        plugins: [gradientLinePlugin, glowPlugin, overlayPlugin],
+        data: {
+          labels: data.labels,
+          datasets: [{
+            data: data.values,
+            borderColor: '#c8f000',
+            borderWidth: 2.5,
+            pointBackgroundColor: 'transparent',
+            pointBorderColor: 'transparent',
+            pointRadius: 0,
+            pointHoverRadius: 6,
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: '#c8f000',
+            pointHoverBorderWidth: 2,
+            fill: true,
+            backgroundColor: fillGrad,
+            tension: 0.44
+          }]
+        },
+        options: {
+          responsive: true,
+          interaction: { mode: 'index', intersect: false },
+          animation: {
+            x: { type: 'number', easing: 'linear', duration: delay, from: NaN,
+              delay(c) { if (c.type !== 'data' || c.xStarted) return 0; c.xStarted = true; return c.index * delay; }
+            },
+            y: { type: 'number', easing: 'linear', duration: delay, from: prevY,
+              delay(c) { if (c.type !== 'data' || c.yStarted) return 0; c.yStarted = true; return c.index * delay; }
+            }
+          },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              backgroundColor: 'rgba(7,26,10,0.95)',
+              borderColor: 'rgba(200,240,0,0.2)',
+              borderWidth: 1,
+              titleColor: '#c8f000',
+              bodyColor: 'rgba(232,245,233,0.75)',
+              padding: 11,
+              cornerRadius: 8,
+              displayColors: false,
+              callbacks: {
+                title: c => c[0].label,
+                label: c => `  ${c.parsed.y}M players`
+              }
+            }
+          },
+          scales: {
+            x: {
+              border: { display: false },
+              grid: { color: 'rgba(200,240,0,0.045)', drawTicks: false },
+              ticks: { color: 'rgba(232,245,233,0.35)', font: { family: 'Poppins', size: 10 }, maxRotation: 0, padding: 8 }
+            },
+            y: {
+              border: { display: false },
+              grid: { color: 'rgba(200,240,0,0.045)', drawTicks: false },
+              ticks: { color: 'rgba(232,245,233,0.35)', font: { family: 'Poppins', size: 10 }, padding: 8, callback: v => v + 'M' },
+              beginAtZero: true
+            }
+          }
+        }
+      });
+
+      // Update badge label and keep pulse going
+      const last = data.values[data.values.length - 1];
+      document.getElementById('chart-current-val').textContent = last + 'M';
+      pulseTimer = setInterval(() => { if (chart) chart.draw(); }, 50);
+    }
+
+    function setRange(range, btn) {
+      document.querySelectorAll('.chart-toggle-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      buildChart(range === 'all' ? ALL_DATA : RECENT_DATA);
+    }
+
+    const chartObserver = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) { buildChart(ALL_DATA); chartObserver.disconnect(); }
+    }, { threshold: 0.2 });
+    chartObserver.observe(document.querySelector('.growth-section'));
+  </script>
 </body>
 </html>
