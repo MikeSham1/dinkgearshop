@@ -20,7 +20,7 @@
   <style>
     .about-section {
       max-width: 780px;
-      margin: 5rem auto;
+      margin: 2rem auto 5rem;
       padding: 0 2rem;
     }
 
@@ -58,7 +58,7 @@
 
     .growth-section {
       max-width: 820px;
-      margin: 0 auto 3rem;
+      margin: 3.5rem auto 2.5rem;
       padding: 0 2rem;
     }
 
@@ -114,8 +114,8 @@
     }
 
     .chart-wrap {
-      background: var(--bg-card);
-      border: 1.5px solid var(--border);
+      background: #071a0a;
+      border: 1.5px solid rgba(200,240,0,0.14);
       border-radius: var(--radius);
       padding: 1rem 1.25rem 0.75rem;
       position: relative;
@@ -182,7 +182,7 @@
 
     .values-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 1.25rem;
       margin-top: 1rem;
     }
@@ -193,30 +193,19 @@
       padding: 1.75rem 1.5rem;
       border: 1.5px solid var(--border);
       box-shadow: var(--shadow-sm);
-      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
       position: relative;
       overflow: hidden;
     }
 
-    .value-card::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--green-mid), var(--lime));
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-
     .value-card:hover {
       transform: translateY(-4px);
-      box-shadow: var(--shadow-md);
-      border-color: var(--lime-soft);
+      border-color: rgba(200,240,0,0.55);
+      box-shadow:
+        0 0 0 1px rgba(200,240,0,0.3),
+        0 0 18px rgba(200,240,0,0.14),
+        0 8px 28px rgba(0,0,0,0.1);
     }
-
-    .value-card:hover::after { opacity: 1; }
 
     .value-card h3 {
       font-size: var(--fs-ui);
@@ -230,6 +219,10 @@
       color: var(--text-muted);
       line-height: 1.65;
       margin: 0;
+    }
+
+    @media (max-width: 500px) {
+      .values-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -249,24 +242,9 @@
   </nav>
 
   <main>
-    <div class="page-hero">
+    <div class="page-hero page-hero--image">
       <h1>We Love Pickleball</h1>
       <p>And we wanted gear that shows it</p>
-    </div>
-
-    <div class="stats-bar reveal">
-      <div class="stat-item">
-        <span class="stat-number">30M+</span>
-        <span class="stat-label">US Pickleball Players</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-number">#1</span>
-        <span class="stat-label">Fastest Growing Sport</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-number">2</span>
-        <span class="stat-label">Product Categories</span>
-      </div>
     </div>
 
     <div class="growth-section reveal">

@@ -27,15 +27,16 @@
       padding: 2rem;
       position: relative;
       overflow: hidden;
-      background: linear-gradient(-45deg, #071a0a, #0d2b12, #1a5c2a, #0f3d1a, #071a0a);
-      background-size: 400% 400%;
-      animation: gradientShift 10s ease infinite;
-    }
-
-    @keyframes gradientShift {
-      0%   { background-position: 0% 50%; }
-      50%  { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(4,14,6,0.82) 0%,
+          rgba(7,26,10,0.62) 40%,
+          rgba(7,26,10,0.68) 70%,
+          rgba(4,14,6,0.90) 100%
+        ),
+        url('images/pickleballbackdrop.jpg') center 32% / cover no-repeat;
+      background-attachment: scroll;
     }
 
     /* Glowing orb */
@@ -122,6 +123,29 @@
       background: rgba(255,255,255,0.12);
     }
 
+    .email-form input[type="email"].invalid {
+      border-color: rgba(255,80,80,0.8);
+      background: rgba(255,60,60,0.1);
+      box-shadow: 0 0 0 3px rgba(255,80,80,0.15);
+      animation: shake 0.35s cubic-bezier(0.36,0.07,0.19,0.97) both;
+    }
+
+    @keyframes shake {
+      10%, 90%  { transform: translateX(-3px); }
+      20%, 80%  { transform: translateX(4px); }
+      30%, 50%, 70% { transform: translateX(-5px); }
+      40%, 60%  { transform: translateX(5px); }
+    }
+
+    .email-error {
+      font-size: 0.75rem;
+      color: rgba(255,110,110,0.9);
+      margin-top: 0.4rem;
+      display: none;
+    }
+
+    .email-error.show { display: block; }
+
     .email-form button {
       padding: 0.85rem 2rem;
       background: #c8f000;
@@ -150,9 +174,9 @@
     /* Paddle scene */
     .paddle-scene {
       position: relative;
-      margin: 3rem auto 0;
-      width: 220px;
-      height: 260px;
+      flex-shrink: 0;
+      width: 160px;
+      height: 220px;
       display: flex;
       justify-content: center;
       align-items: flex-end;
@@ -162,50 +186,54 @@
       position: absolute;
       bottom: 2px;
       left: 50%;
-      transform: translateX(-64%);
-      width: 72px;
-      height: 13px;
-      background: rgba(0,0,0,0.45);
+      width: 60px;
+      height: 10px;
+      background: rgba(0,0,0,0.4);
       border-radius: 50%;
-      filter: blur(8px);
-      animation: pgShadow 3.5s ease-in-out infinite;
+      filter: blur(7px);
+      animation: pgShadow 3s ease-in-out infinite;
     }
 
     @keyframes pgShadow {
-      0%, 100% { opacity: 0.45; transform: translateX(-64%) scale(1); }
-      50%       { opacity: 0.2;  transform: translateX(-64%) scale(0.6); }
+      0%, 18%  { opacity: 0.4;  transform: translateX(-50%) scale(1); }
+      44%       { opacity: 0.12; transform: translateX(-50%) scale(0.45); }
+      72%       { opacity: 0.3;  transform: translateX(-50%) scale(0.8); }
+      100%      { opacity: 0.4;  transform: translateX(-50%) scale(1); }
     }
 
     .paddle-svg {
-      width: 118px;
-      filter: drop-shadow(0 16px 36px rgba(0,0,0,0.55));
-      animation: pgFloat 3.5s ease-in-out infinite;
+      width: 90px;
+      filter: drop-shadow(0 12px 28px rgba(0,0,0,0.55));
+      animation: pgSwing 3s ease-in-out infinite;
+      transform-origin: 50% 76%;
       position: relative;
       z-index: 1;
     }
 
-    @keyframes pgFloat {
-      0%        { transform: translateY(0px)   rotate(-8deg); }
-      30%       { transform: translateY(-18px) rotate(-4deg); }
-      60%       { transform: translateY(-24px) rotate(-6deg); }
-      100%      { transform: translateY(0px)   rotate(-8deg); }
+    @keyframes pgSwing {
+      0%, 18%  { transform: rotate(-15deg); }
+      32%       { transform: rotate(-33deg); }
+      44%       { transform: rotate(20deg); }
+      56%       { transform: rotate(28deg); }
+      80%, 100% { transform: rotate(-15deg); }
     }
 
     .pickleball-ball {
       position: absolute;
-      top: 14px;
-      right: 10px;
-      width: 38px;
+      top: 95px;
+      right: 36px;
+      width: 34px;
       filter: drop-shadow(0 5px 10px rgba(0,0,0,0.35));
-      animation: pgBall 3.5s ease-in-out infinite;
+      animation: pgBallHit 3s ease-in-out infinite;
     }
 
-    @keyframes pgBall {
-      0%   { transform: translate(0px,   0px); }
-      20%  { transform: translate(10px, -22px) rotate(30deg); }
-      45%  { transform: translate(18px, -10px) rotate(55deg); }
-      70%  { transform: translate(8px,   6px)  rotate(35deg); }
-      100% { transform: translate(0px,   0px)  rotate(0deg); }
+    @keyframes pgBallHit {
+      0%, 40%   { transform: translate(0, 0) rotate(0deg) scale(1); }
+      43%        { transform: translate(0, 0) rotate(0deg) scale(0.82); }
+      47%        { transform: translate(10px, -16px) rotate(45deg) scale(1.12); }
+      65%        { transform: translate(54px, -78px) rotate(135deg) scale(1); }
+      82%        { transform: translate(22px, 28px) rotate(225deg) scale(0.95); }
+      95%, 100%  { transform: translate(0, 0) rotate(270deg) scale(1); }
     }
 
     /* Category strips */
@@ -302,32 +330,44 @@
     /* Coming soon section */
     .coming-soon-strip {
       background: linear-gradient(135deg, var(--green-darkest), var(--green-dark));
-      padding: 5rem 2rem;
-      text-align: center;
+      padding: 4rem 3rem;
       position: relative;
       overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+      border-radius: var(--radius);
+      margin-bottom: 4rem;
     }
 
     .coming-soon-strip::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse at center, rgba(200,240,0,0.07) 0%, transparent 65%);
+      background: radial-gradient(ellipse at 30% 50%, rgba(200,240,0,0.07) 0%, transparent 65%);
+      border-radius: inherit;
     }
+
+    .coming-soon-text { position: relative; max-width: 420px; }
 
     .coming-soon-strip h2 {
       font-size: 2rem;
       color: #fff;
       margin-bottom: 0.75rem;
-      position: relative;
     }
 
     .coming-soon-strip p {
       color: rgba(255,255,255,0.55);
       font-size: var(--fs-body);
-      max-width: 480px;
-      margin: 0 auto;
-      position: relative;
+      line-height: 1.7;
+    }
+
+    /* Static cat icons — no animation */
+    .cat-icon-svg {
+      animation: none !important;
     }
   </style>
 </head>
@@ -350,81 +390,12 @@
         <div class="badge hero-badge-in">Launching Soon</div>
         <h1 class="hero-title-in">Custom Pickleball Gear<br>for the <span class="accent">Passionate Pickleballer</span></h1>
         <p class="hero-sub hero-sub-in">Tees and hats — designed for the court, made for everywhere.</p>
-        <form class="email-form hero-form-in" onsubmit="handleSubmit(event)">
-          <input type="email" placeholder="Enter your email for early access" required />
+        <form class="email-form hero-form-in" onsubmit="handleSubmit(event)" novalidate>
+          <input type="email" id="hero-email" placeholder="Enter your email for early access" autocomplete="email" />
           <button type="submit">Notify Me</button>
         </form>
+        <p class="email-error" id="hero-email-error">Please enter a valid email address.</p>
         <p class="email-note">No spam, ever. We'll only reach out when we launch.</p>
-
-        <!-- Paddle scene -->
-        <div class="paddle-scene hero-scene-in">
-          <div class="paddle-shadow"></div>
-
-          <svg class="paddle-svg" viewBox="0 0 140 265" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="pgFace" x1="10%" y1="0%" x2="90%" y2="100%">
-                <stop offset="0%" stop-color="#2a8f3e"/>
-                <stop offset="100%" stop-color="#1a5c2a"/>
-              </linearGradient>
-              <linearGradient id="pgHandle" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%"   stop-color="#0d2b12"/>
-                <stop offset="50%"  stop-color="#1a3a20"/>
-                <stop offset="100%" stop-color="#0d2b12"/>
-              </linearGradient>
-              <radialGradient id="pgShine" cx="32%" cy="22%" r="55%">
-                <stop offset="0%"   stop-color="rgba(255,255,255,0.18)"/>
-                <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
-              </radialGradient>
-            </defs>
-
-            <!-- Handle -->
-            <rect x="51" y="160" width="38" height="96" rx="13" fill="url(#pgHandle)"/>
-            <line x1="53" y1="178" x2="87" y2="178" stroke="rgba(200,240,0,0.22)" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="53" y1="192" x2="87" y2="192" stroke="rgba(200,240,0,0.22)" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="53" y1="206" x2="87" y2="206" stroke="rgba(200,240,0,0.22)" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="53" y1="220" x2="87" y2="220" stroke="rgba(200,240,0,0.22)" stroke-width="1.5" stroke-linecap="round"/>
-            <line x1="53" y1="234" x2="87" y2="234" stroke="rgba(200,240,0,0.22)" stroke-width="1.5" stroke-linecap="round"/>
-            <!-- End cap -->
-            <rect x="51" y="248" width="38" height="10" rx="7" fill="#071a0a"/>
-
-            <!-- Paddle face -->
-            <rect x="8" y="8" width="124" height="158" rx="42" fill="url(#pgFace)"/>
-            <!-- Lime edge trim -->
-            <rect x="8" y="8" width="124" height="158" rx="42" fill="none" stroke="#c8f000" stroke-width="2.5" stroke-opacity="0.5"/>
-            <!-- Inner dashed ring -->
-            <circle cx="70" cy="84" r="30" fill="none" stroke="rgba(200,240,0,0.28)" stroke-width="1.5" stroke-dasharray="4 3"/>
-            <!-- Brand text on face -->
-            <text x="70" y="79" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="800" fill="rgba(200,240,0,0.82)" letter-spacing="3">DINK</text>
-            <text x="70" y="94" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9"  font-weight="600" fill="rgba(200,240,0,0.48)" letter-spacing="2">GEAR</text>
-            <!-- Shine overlay -->
-            <rect x="8" y="8" width="124" height="158" rx="42" fill="url(#pgShine)"/>
-            <!-- Top highlight stroke -->
-            <path d="M 42 11 Q 70 7 98 11" stroke="rgba(255,255,255,0.22)" stroke-width="2" fill="none" stroke-linecap="round"/>
-          </svg>
-
-          <!-- Pickleball -->
-          <div class="pickleball-ball">
-            <svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <radialGradient id="pgBall" cx="35%" cy="28%" r="65%">
-                  <stop offset="0%"   stop-color="#e0ff30"/>
-                  <stop offset="100%" stop-color="#a8cc00"/>
-                </radialGradient>
-              </defs>
-              <circle cx="22" cy="22" r="21" fill="url(#pgBall)"/>
-              <!-- Holes -->
-              <circle cx="15" cy="15" r="2.8" fill="rgba(7,26,10,0.26)"/>
-              <circle cx="29" cy="13" r="2.8" fill="rgba(7,26,10,0.26)"/>
-              <circle cx="13" cy="27" r="2.8" fill="rgba(7,26,10,0.26)"/>
-              <circle cx="27" cy="29" r="2.8" fill="rgba(7,26,10,0.26)"/>
-              <circle cx="22" cy="21" r="2.8" fill="rgba(7,26,10,0.26)"/>
-              <circle cx="31" cy="22" r="2"   fill="rgba(7,26,10,0.2)"/>
-              <circle cx="19" cy="33" r="2"   fill="rgba(7,26,10,0.2)"/>
-              <!-- Shine -->
-              <ellipse cx="15" cy="13" rx="6" ry="5" fill="rgba(255,255,255,0.35)"/>
-            </svg>
-          </div>
-        </div>
 
       </div>
     </div>
@@ -486,8 +457,63 @@
     </div>
 
     <div class="coming-soon-strip reveal">
-      <h2>Something fresh is coming.</h2>
-      <p>We're putting the finishing touches on our first drop. Sign up above to get first access when we launch.</p>
+      <div class="coming-soon-text">
+        <h2>Something fresh is coming.</h2>
+        <p>We're putting the finishing touches on our first drop. Sign up above to get first access when we launch.</p>
+      </div>
+      <div class="paddle-scene">
+        <div class="paddle-shadow"></div>
+        <svg class="paddle-svg" viewBox="0 0 140 265" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="pgFace" x1="10%" y1="0%" x2="90%" y2="100%">
+              <stop offset="0%" stop-color="#2a8f3e"/>
+              <stop offset="100%" stop-color="#1a5c2a"/>
+            </linearGradient>
+            <linearGradient id="pgHandle" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%"   stop-color="#0d2b12"/>
+              <stop offset="50%"  stop-color="#1a3a20"/>
+              <stop offset="100%" stop-color="#0d2b12"/>
+            </linearGradient>
+            <radialGradient id="pgShine" cx="32%" cy="22%" r="55%">
+              <stop offset="0%"   stop-color="rgba(255,255,255,0.18)"/>
+              <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+            </radialGradient>
+          </defs>
+          <rect x="51" y="160" width="38" height="96" rx="13" fill="url(#pgHandle)"/>
+          <line x1="53" y1="178" x2="87" y2="178" stroke="rgba(200,240,0,0.22)" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="53" y1="192" x2="87" y2="192" stroke="rgba(200,240,0,0.22)" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="53" y1="206" x2="87" y2="206" stroke="rgba(200,240,0,0.22)" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="53" y1="220" x2="87" y2="220" stroke="rgba(200,240,0,0.22)" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="53" y1="234" x2="87" y2="234" stroke="rgba(200,240,0,0.22)" stroke-width="1.5" stroke-linecap="round"/>
+          <rect x="51" y="248" width="38" height="10" rx="7" fill="#071a0a"/>
+          <rect x="8" y="8" width="124" height="158" rx="42" fill="url(#pgFace)"/>
+          <rect x="8" y="8" width="124" height="158" rx="42" fill="none" stroke="#c8f000" stroke-width="2.5" stroke-opacity="0.5"/>
+          <circle cx="70" cy="84" r="30" fill="none" stroke="rgba(200,240,0,0.28)" stroke-width="1.5" stroke-dasharray="4 3"/>
+          <text x="70" y="79" text-anchor="middle" font-family="Poppins,sans-serif" font-size="11" font-weight="800" fill="rgba(200,240,0,0.82)" letter-spacing="3">DINK</text>
+          <text x="70" y="94" text-anchor="middle" font-family="Poppins,sans-serif" font-size="9"  font-weight="600" fill="rgba(200,240,0,0.48)" letter-spacing="2">GEAR</text>
+          <rect x="8" y="8" width="124" height="158" rx="42" fill="url(#pgShine)"/>
+          <path d="M 42 11 Q 70 7 98 11" stroke="rgba(255,255,255,0.22)" stroke-width="2" fill="none" stroke-linecap="round"/>
+        </svg>
+        <div class="pickleball-ball">
+          <svg viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="pgBall" cx="35%" cy="28%" r="65%">
+                <stop offset="0%"   stop-color="#e0ff30"/>
+                <stop offset="100%" stop-color="#a8cc00"/>
+              </radialGradient>
+            </defs>
+            <circle cx="22" cy="22" r="21" fill="url(#pgBall)"/>
+            <circle cx="15" cy="15" r="2.8" fill="rgba(7,26,10,0.26)"/>
+            <circle cx="29" cy="13" r="2.8" fill="rgba(7,26,10,0.26)"/>
+            <circle cx="13" cy="27" r="2.8" fill="rgba(7,26,10,0.26)"/>
+            <circle cx="27" cy="29" r="2.8" fill="rgba(7,26,10,0.26)"/>
+            <circle cx="22" cy="21" r="2.8" fill="rgba(7,26,10,0.26)"/>
+            <circle cx="31" cy="22" r="2"   fill="rgba(7,26,10,0.2)"/>
+            <circle cx="19" cy="33" r="2"   fill="rgba(7,26,10,0.2)"/>
+            <ellipse cx="15" cy="13" rx="6" ry="5" fill="rgba(255,255,255,0.35)"/>
+          </svg>
+        </div>
+      </div>
     </div>
   </main>
 
@@ -531,23 +557,43 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
   <script src="db.js"></script>
   <script>
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    const heroInput = document.getElementById('hero-email');
+    const heroError = document.getElementById('hero-email-error');
+
+    heroInput.addEventListener('input', () => {
+      if (heroInput.classList.contains('invalid') && emailRe.test(heroInput.value.trim())) {
+        heroInput.classList.remove('invalid');
+        heroError.classList.remove('show');
+      }
+    });
+
     async function handleSubmit(e) {
       e.preventDefault();
       const btn   = e.target.querySelector('button');
-      const input = e.target.querySelector('input');
-      const email = input.value.trim();
-      btn.disabled  = true;
+      const email = heroInput.value.trim();
+
+      if (!emailRe.test(email)) {
+        heroInput.classList.remove('invalid');
+        void heroInput.offsetWidth; // restart shake animation
+        heroInput.classList.add('invalid');
+        heroError.classList.add('show');
+        heroInput.focus();
+        return;
+      }
+
+      heroInput.classList.remove('invalid');
+      heroError.classList.remove('show');
+      btn.disabled    = true;
       btn.textContent = 'Saving…';
+
       try {
         const result = await DinkDB.saveEmailSignup(email);
-        if (result.alreadySignedUp) {
-          btn.textContent = 'Already signed up!';
-        } else {
-          btn.textContent = "You're on the list!";
-        }
+        btn.textContent      = result.alreadySignedUp ? 'Already signed up!' : "You're on the list!";
         btn.style.background = 'rgba(200,240,0,0.3)';
         btn.style.color      = '#c8f000';
-        input.disabled       = true;
+        heroInput.disabled   = true;
       } catch (err) {
         console.error(err);
         btn.disabled    = false;

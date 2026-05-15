@@ -155,7 +155,7 @@
     btn.setAttribute('aria-label', 'Open cart');
     btn.onclick = openCart;
     btn.innerHTML = `
-      <img src="images/shopping cart.png" alt="Cart" width="22" height="22" style="display:block;filter:invert(1) brightness(0.75);">
+      <img src="images/shopping cart.png" alt="Cart" width="22" height="22" style="display:block;filter:brightness(0) saturate(100%) invert(91%) sepia(60%) saturate(800%) hue-rotate(25deg) brightness(102%);">
       <span class="cart-badge" style="display:none">0</span>`;
     nav.appendChild(btn);
   }
